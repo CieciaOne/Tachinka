@@ -7,32 +7,39 @@ fn main() {
     yew::start_app::<App>();
 }
 
+
+
 #[function_component(App)]
 pub fn app() -> Html {
     let welcome = use_state_eq(|| "".to_string());
-    let name = use_state_eq(|| "User".to_string());
 
-    {
-        let welcome = welcome.clone();
-        use_effect_with_deps(
-            move |name| {
-                update_welcome_message(welcome, name.clone());
-                || ()
-            },
-            (*name).clone(),
-        );
-    }
-
-    let message = (*welcome).clone();
-
+    // {
+    //     let welcome = welcome.clone();
+    //     use_effect_with_deps(
+    //         move |name| {
+    //             update_welcome_message(welcome, name.clone());
+    //             || ()
+    //         },
+    //         (*name).clone(),
+    //     );
+    // }
+    let scale = "1";
+    let arr = ["A","B","C","D","E","F","G","H","A","B","C","D","E","F","G","H"];
     html! {
         <div class="screen">
             <div class="topbar">
-                <h2 class={"heading"}>{message}</h2>
+                <h2 class={"heading"}>{"Tachinka"}</h2>
+                <input type="text" class="search-box"/>
             </div>
 
             <div class="main">
-                <p>{"main"}</p>
+                {
+                    arr.iter().map(|i| {
+                        html!{
+                            <div id={*i} class="item" style="color:white;">{format!("Object: {}",i)}</div>
+                        }
+                    }).collect::<Html>()
+                }
             </div>
             <div class="botbar">
                 <p>{"bot"}</p>

@@ -1,5 +1,6 @@
 frontend/target
 frontend/Cargo.lock
+frontend/dist
 
 src-tauri/target
 src-tauri/Cargo.lock

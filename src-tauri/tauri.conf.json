@@ -5,7 +5,7 @@
   },
   "build": {
     "distDir": "../frontend/dist",
-    "devPath": "http://0.0.0.0:8080",
+    "devPath": "http://localhost:8080",
     "beforeDevCommand": "cd frontend && trunk serve",
     "beforeBuildCommand": "cd frontend && trunk build",
     "withGlobalTauri": true
@@ -56,8 +56,10 @@
     "windows": [
       {
         "title": "Tachinka",
-        "width": 800,
-        "height": 600,
+        "width": 540,
+        "minWidth": 320,
+        "height": 960,
+        "minHeight": 320,
         "resizable": true,
         "fullscreen": false
       }
