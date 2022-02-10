@@ -4,12 +4,11 @@
 )]
 
 use reqwest;
-// use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![hello])
+        .invoke_handler(tauri::generate_handler![hello, get_manga_list])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -24,11 +23,13 @@ fn hello(name: &str) -> Result<String, String> {
 }
 
 #[tauri::command]
-async fn get_manga_list() -> Result<(), reqwest::Error> {
-    let mangalist = reqwest::get("https://api.mangadex.org/manga")
-        .await?
-        .text()
-        .await?;
-    println!("{:#?}", mangalist);
-    Ok(())
+async fn get_manga_list(tags: String, offset: i32) -> Result<String, String> {
+    let resp = reqwest::get("https://api.mangadex.org/manga").await;
+    match resp {
+        Ok(res) => match res.text().await {
+            Ok(text) => Ok(text),
+            Err(e) => Err(format!("Error: {:?}", e)),
+        },
+        Err(e) => Err(format!("Error: {:?}", e)),
+    }
 }
